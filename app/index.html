@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"><html xmlns="http://www.w3.org/1999/xhtml"></html><head><link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-layout/1.4.3/layout-default.css"/><link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"/><link rel="stylesheet" href="../../visual-developer/public/stylesheets/style.css"/><style>body {
+  background-color: #252525;
+}
+.container {
+  height: 100%;
+  width: 100%;
+}
+</style></head><body><pypod toolbox="{opts.toolbox}" script="{opts.script}" shared-observable="{opts.sharedObservable}"></pypod><script type="text/javascript">if (typeof module == 'object') {
+    window.module = module;
+    module = undefined
+}</script><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-layout/1.4.3/jquery.layout.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/jeremyfa/yaml.js/develop/dist/yaml.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.7.4/riot+compiler.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/j-ulrich/jquery-simulate-ext/13829b2b/libs/jquery.simulate.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/j-ulrich/jquery-simulate-ext/13829b2b/src/jquery.simulate.ext.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/j-ulrich/jquery-simulate-ext/13829b2b/libs/bililiteRange.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/j-ulrich/jquery-simulate-ext/13829b2b/src/jquery.simulate.key-sequence.js"></script><script type="text/javascript" src="https://cdn.rawgit.com/j-ulrich/jquery-simulate-ext/13829b2b/src/jquery.simulate.drag-n-drop.js"></script><script>require("./renderer.js")
+</script>
+
+
+<script src="lib/lib.js?0.9292399856585538"></script><script type="text/javascript">if (window.module) {
+    module = window.module
+}</script><script src="../../visual-developer/public/lib/ext.js?0.9292399856585538"></script><script src="../../visual-developer/public/lib/lib.js?0.9292399856585538"></script><script type="text/javascript" src="components/components.js?0.9292399856585538"></script><script type="text/javascript" src="../../visual-developer/public/components/components.js?0.9292399856585538"></script><script>(function() {
+  var i, p, sharedObservable;
+
+  p = $("pypod");
+
+  i = 0;
+
+  while (!p[0].tagname === "body") {
+    p = p.parent().css("height", "100%");
+    i += 1;
+    if (i > 100) {
+      console.log("infinite loop");
+      break;
+    }
+  }
+
+  window.electron = require('electron');
+
+  window.promise = require('promise');
+
+  window.runPython = electron.remote.getCurrentWindow().runPython;
+
+  window.getPythonValue = electron.remote.getCurrentWindow().getPythonValue;
+
+  sharedObservable = riot.observable();
+
+  scriptModel.getBloqData(function(script, toolbox) {
+    var app;
+    return app = riot.mount("pypod", {
+      sharedObservable: sharedObservable,
+      script: script,
+      toolbox: toolbox
+    });
+  });
+
+}).call(this);
+</script></body>

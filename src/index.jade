@@ -1,0 +1,65 @@
+doctype 1.1
+html(xmlns='http://www.w3.org/1999/xhtml')
+head
+  include includes/styles
+  style
+    :stylus
+      body 
+        background-color #252525
+      .container
+        height 100%
+        width 100%
+body
+  pypod( toolbox="{opts.toolbox}" script="{opts.script}"  shared-observable="{opts.sharedObservable}")
+
+  //- load external javascripts
+  include includes/external-libraries
+
+  //- load renderer
+  script.
+        require("./renderer.js")
+
+  //- load local javascripts
+  - rnd = Math.random()
+  //- script(type='text/javascript', src='/javascripts/layout.js')
+
+
+
+
+  //- load customize-sortable file
+  include includes/custom-scripts
+ 
+  //- load riot components
+
+  script(src="../../visual-developer/public/lib/ext.js?#{rnd}")
+  script(src="../../visual-developer/public/lib/lib.js?#{rnd}")
+  script(type="text/javascript" ,src="components/components.js?#{rnd}")
+  script(type="text/javascript" ,src="../../visual-developer/public/components/components.js?#{rnd}")
+
+  script
+    :coffee-script
+        p = $("pypod")
+        i = 0
+        while not p[0].tagname == "body"
+          p = p.parent().css("height", "100%")
+          i += 1
+          if i > 100
+            console.log "infinite loop"
+            break
+        window.electron = require 'electron'
+        window.promise = require 'promise'
+        window.runPython = electron.remote.getCurrentWindow().runPython
+        window.getPythonValue = electron.remote.getCurrentWindow().getPythonValue
+
+ 
+        sharedObservable = riot.observable()
+      
+        #tag = riot.mount "file-browser", fileManager.buildFileModel("file-system-test")
+        scriptModel.getBloqData (script, toolbox)->
+          app = riot.mount "pypod",
+            sharedObservable: sharedObservable
+            script: script
+            toolbox: toolbox
+        #tag[0].on 'fileChosen', (file)->
+          # when user double clicks on a python file, run the file via pythonManager. log results to console
+
